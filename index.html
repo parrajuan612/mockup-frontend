@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track My Money - Login Green</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* NUEVA PALETA DE COLORES VERDES BASADA EN LA IMAGEN */
+        :root {
+            --bg-color: #E0ECDE;           /* El color de fondo crema/verde pálido de tu imagen */
+            --primary-green: #69A174;      /* Un verde sage medio inspirado en la sudadera */
+            --primary-hover: #578B61;      /* Una versión más oscura del verde para hovers */
+            --text-dark: #1E1E2F;          /* Mantenemos el texto oscuro para contraste */
+            --text-light: #7E7E96;         /* Mantenemos el texto secundario */
+            --white: #FFFFFF;
+            --input-border: #D8DFD7;       /* Borde de input en verde muy pálido armonizado */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* --- COLUMNA IZQUIERDA --- */
+        .left-column {
+            flex: 1;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .branding h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            color: var(--text-dark);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .branding h1 span {
+            color: var(--primary-green); /* Ahora el nombre es verde */
+            display: block;
+        }
+
+        .branding p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 250px;
+            margin-bottom: 2rem; /* Espacio ajustado antes de la imagen */
+        }
+
+        .illustration-container {
+            position: relative;
+            width: 100%;
+            height: 420px;
+        }
+
+        /* Imagen 3D */
+        .img-3d {
+            position: absolute;
+            top: -10px; /* Ajuste ligero para la nueva imagen */
+            left: -30px; /* Ajuste ligero */
+            width: 480px; /* Un poco más grande para llenar el espacio */
+            height: auto;
+            z-index: 1;
+            /* mix-blend-mode: darken;  Ya no es tan necesario si la imagen es limpia */
+        }
+
+        /* Tarjetas Flotantes (Gráficas) */
+        .floating-card {
+            background: rgba(255, 255, 255, 0.75); /* Un poco más de opacidad para que resalte sobre el verde */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 1rem;
+            position: absolute;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            z-index: 2;
+        }
+
+        .card-title {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            display: block;
+        }
+
+        .card-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .card-1 {
+            top: 10px;
+            right: 5%;
+            width: 180px;
+        }
+        
+        .wave-chart {
+            width: 100%;
+            height: 40px;
+            fill: none;
+            stroke: var(--primary-green); /* Gráfico ahora es verde */
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+        
+        .wave-fill {
+            fill: rgba(105, 161, 116, 0.1); /* Relleno verde muy pálido */
+            stroke: none;
+        }
+
+        .card-2 {
+            top: 140px;
+            right: -2%;
+            width: 160px;
+        }
+
+        .card-3 {
+            top: 260px;
+            right: 8%;
+            width: 180px;
+        }
+
+        .progress-bar-bg {
+            background: #D8DFD7; /* Fondo de la barra en verde muy pálido */
+            height: 6px;
+            border-radius: 3px;
+            width: 100%;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: var(--primary-green); /* Barra de progreso ahora es verde */
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .icon-circle {
+            width: 24px;
+            height: 24px;
+            background: var(--bg-color); /* Círculo de icono sobre el verde pálido */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- COLUMNA DERECHA (LOGIN) --- */
+        .right-column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+
+        .login-box h2 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+            font-weight: 700;
+        }
+
+        .login-box p.subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-green); /* Foco del input en verde */
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--primary-green); /* Enlace en verde */
+            text-decoration: none;
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-green); /* Botón principal ahora es verde */
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover); /* Oscurece al hover */
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--input-border);
+        }
+
+        .divider::before { margin-right: 1rem; }
+        .divider::after { margin-left: 1rem; }
+
+        .social-login {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-social {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--white);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-social:hover {
+            background: #F8F8F8;
+        }
+
+        .btn-social img {
+            height: 20px;
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .register-text a {
+            color: var(--primary-green); /* Enlace de registro en verde */
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive Básico */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-column {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .branding p {
+                max-width: 100%;
+            }
+            .floating-card {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin: 10px auto;
+            }
+            .img-3d {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="left-column">
+            
+            <div class="branding">
+                <h1>TRACK<br>MY<br><span>MONEY</span></h1>
+                <p>Entiende tu dinero, mejora tu vida.</p>
+            </div>
+
+            <div class="illustration-container">
+                <img src="img/chico_version_verde.png" alt="Ilustración 3D de chico en puff (Verde)" class="img-3d">
+                
+                <div class="floating-card card-1">
+                    <span class="card-title">Gastos este mes</span>
+                    <span class="card-value">$1,880.00</span>
+                    <svg viewBox="0 0 100 40" class="wave-chart">
+                        <path class="wave-fill" d="M0,30 C10,20 20,40 30,30 C40,20 50,35 60,25 C70,15 80,30 90,10 L100,20 L100,40 L0,40 Z"></path>
+                        <path d="M0,30 C10,20 20,40 30,30 C40,20 50,35 60,25 C70,15 80,30 90,10 L100,20" fill="none" stroke="#69A174" stroke-width="2"></path>
+                    </svg>
+                </div>
+
+                <div class="floating-card card-2">
+                    <div class="flex-between">
+                        <div>
+                            <span class="card-title">Presupuesto</span>
+                            <span class="card-value">75%</span>
+                        </div>
+                        <div class="icon-circle">
+                            <span style="color:#69A174; font-size:12px;">💸</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <div class="floating-card card-3">
+                    <div class="flex-between">
+                        <div>
+                            <span class="card-title">Metas</span>
+                            <span style="font-size: 0.8rem; font-weight: 600;">Viaje a Europa</span>
+                        </div>
+                        <div class="icon-circle">
+                            <span style="color:#69A174; font-size:12px;">✈️</span>
+                        </div>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #7E7E96; display:block; margin-top:5px;">$1,300 <span style="opacity: 0.5;">/ $1,500</span></span>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="login-box">
+                <h2>Bienvenido</h2>
+                <p class="subtitle">Inicia sesión para continuar</p>
+
+                <form>
+                    <div class="input-group">
+                        <label>Correo electrónico</label>
+                        <div class="input-wrapper">
+                            <input type="email" placeholder="Ingresa tu correo" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Contraseña</label>
+                        <div class="input-wrapper">
+                            <input type="password" placeholder="Ingresa tu contraseña" required>
+                            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+
+                    <button type="submit" class="btn-primary">Iniciar sesión</button>
+                </form>
+
+                <div class="divider">o continua con</div>
+
+                <div class="social-login">
+                    <button class="btn-social" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                    </button>
+                    <button class="btn-social" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.58 11.83c-.02-2.36 1.93-3.5 2.02-3.56-1.1-1.6-2.8-1.83-3.41-1.86-1.46-.15-2.85.86-3.6.86-.74 0-1.88-.84-3.1-.82-1.58.02-3.04.92-3.86 2.35-1.66 2.88-.42 7.15 1.2 9.48.79 1.14 1.73 2.42 2.97 2.37 1.19-.05 1.65-.77 3.09-.77 1.44 0 1.86.77 3.11.75 1.27-.02 2.08-1.16 2.87-2.3 3.02 0 .91-1.28 1.4-2.58.05-.03-2.32-.9-2.34-3.6M15.4 5.25c.65-.79 1.09-1.89.97-3-.99.04-2.13.66-2.8 1.45-.6.7-.13 1.84.05 2.97 1.07.08 2.13-.63 2.78-1.42" fill="#000000"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="register-text">
+                    ¿No tienes cuenta? <a href="#">Regístrate</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+
+
+<!-- 
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track My Money - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ece9f9;
+            --primary-purple: #6236FF;
+            --text-dark: #1E1E2F;
+            --text-light: #7E7E96;
+            --white: #FFFFFF;
+            --input-border: #E2E2EC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* --- COLUMNA IZQUIERDA --- */
+        .left-column {
+            flex: 1;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .branding h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            color: var(--text-dark);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .branding h1 span {
+            color: var(--primary-purple);
+            display: block;
+        }
+
+        .branding p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 250px;
+            margin-bottom: 2rem; /* Espacio ajustado antes de la imagen */
+        }
+
+        .illustration-container {
+            position: relative;
+            width: 100%;
+            height: 420px;
+        }
+
+        /* Imagen 3D */
+        .img-3d {
+            position: absolute;
+            top: -30px; /* Sube la imagen un poco */
+            left: -40px; /* La mueve a la izquierda */
+            width: 450px; /* Tamaño de la ilustración */
+            height: auto;
+            z-index: 1;
+            mix-blend-mode: darken; /* Ayuda a disimular el fondo del JPG */
+        }
+
+        /* Tarjetas Flotantes (Gráficas) */
+        .floating-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 12px;
+            padding: 1rem;
+            position: absolute;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            z-index: 2;
+        }
+
+        .card-title {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            display: block;
+        }
+
+        .card-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .card-1 {
+            top: 10px;
+            right: 5%;
+            width: 180px;
+        }
+        
+        .wave-chart {
+            width: 100%;
+            height: 40px;
+            fill: none;
+            stroke: var(--primary-purple);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+        
+        .wave-fill {
+            fill: rgba(98, 54, 255, 0.1);
+            stroke: none;
+        }
+
+        .card-2 {
+            top: 140px;
+            right: -2%;
+            width: 160px;
+        }
+
+        .card-3 {
+            top: 260px;
+            right: 8%;
+            width: 180px;
+        }
+
+        .progress-bar-bg {
+            background: #E2E2EC;
+            height: 6px;
+            border-radius: 3px;
+            width: 100%;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: var(--primary-purple);
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .icon-circle {
+            width: 24px;
+            height: 24px;
+            background: #EFEFFA;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- COLUMNA DERECHA (LOGIN) --- */
+        .right-column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+
+        .login-box h2 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+            font-weight: 700;
+        }
+
+        .login-box p.subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-purple);
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--primary-purple);
+            text-decoration: none;
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-purple);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--input-border);
+        }
+
+        .divider::before { margin-right: 1rem; }
+        .divider::after { margin-left: 1rem; }
+
+        .social-login {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-social {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--white);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-social:hover {
+            background: #F8F8F8;
+        }
+
+        .btn-social img {
+            height: 20px;
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .register-text a {
+            color: var(--primary-purple);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive Básico */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-column {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .branding p {
+                max-width: 100%;
+            }
+            .floating-card {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin: 10px auto;
+            }
+            .img-3d {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="left-column">
+            
+            <div class="branding">
+                <h1>TRACK<br>MY<br><span>MONEY</span></h1>
+                <p>Entiende tu dinero, mejora tu vida.</p>
+            </div>
+
+            <div class="illustration-container">
+             <img src="img/chico-3d.png" alt="Ilustración 3D" class="img-3d">
+                
+                <div class="floating-card card-1">
+                    <span class="card-title">Gastos este mes</span>
+                    <span class="card-value">$1,880.00</span>
+                    <svg viewBox="0 0 100 40" class="wave-chart">
+                        <path class="wave-fill" d="M0,30 C10,20 20,40 30,30 C40,20 50,35 60,25 C70,15 80,30 90,10 L100,20 L100,40 L0,40 Z"></path>
+                        <path d="M0,30 C10,20 20,40 30,30 C40,20 50,35 60,25 C70,15 80,30 90,10 L100,20" fill="none" stroke="#6236FF" stroke-width="2"></path>
+                    </svg>
+                </div>
+
+                <div class="floating-card card-2">
+                    <div class="flex-between">
+                        <div>
+                            <span class="card-title">Presupuesto</span>
+                            <span class="card-value">75%</span>
+                        </div>
+                        <div class="icon-circle">
+                            <span style="color:#6236FF; font-size:12px;">💸</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <div class="floating-card card-3">
+                    <div class="flex-between">
+                        <div>
+                            <span class="card-title">Metas</span>
+                            <span style="font-size: 0.8rem; font-weight: 600;">Viaje a Europa</span>
+                        </div>
+                        <div class="icon-circle">
+                            <span style="color:#6236FF; font-size:12px;">✈️</span>
+                        </div>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #7E7E96; display:block; margin-top:5px;">$1,300 <span style="opacity: 0.5;">/ $1,500</span></span>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="login-box">
+                <h2>Bienvenido</h2>
+                <p class="subtitle">Inicia sesión para continuar</p>
+
+                <form>
+                    <div class="input-group">
+                        <label>Correo electrónico</label>
+                        <div class="input-wrapper">
+                            <input type="email" placeholder="Ingresa tu correo" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Contraseña</label>
+                        <div class="input-wrapper">
+                            <input type="password" placeholder="Ingresa tu contraseña" required>
+                            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+
+                    <button type="submit" class="btn-primary">Iniciar sesión</button>
+                </form>
+
+                <div class="divider">o continua con</div>
+
+                <div class="social-login">
+                    <button class="btn-social" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                    </button>
+                    <button class="btn-social" type="button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.58 11.83c-.02-2.36 1.93-3.5 2.02-3.56-1.1-1.6-2.8-1.83-3.41-1.86-1.46-.15-2.85.86-3.6.86-.74 0-1.88-.84-3.1-.82-1.58.02-3.04.92-3.86 2.35-1.66 2.88-.42 7.15 1.2 9.48.79 1.14 1.73 2.42 2.97 2.37 1.19-.05 1.65-.77 3.09-.77 1.44 0 1.86.77 3.11.75 1.27-.02 2.08-1.16 2.87-2.3 3.02 0 .91-1.28 1.4-2.58.05-.03-2.32-.9-2.34-3.6M15.4 5.25c.65-.79 1.09-1.89.97-3-.99.04-2.13.66-2.8 1.45-.6.7-.13 1.84.05 2.97 1.07.08 2.13-.63 2.78-1.42" fill="#000000"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="register-text">
+                    ¿No tienes cuenta? <a href="#">Regístrate</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html> -->
